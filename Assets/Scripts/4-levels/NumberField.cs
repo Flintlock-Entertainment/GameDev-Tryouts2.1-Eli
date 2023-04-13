@@ -7,7 +7,13 @@ using UnityEngine;
  */
 [RequireComponent(typeof(TextMeshPro))]
 public class NumberField : MonoBehaviour {
-    private int number;
+    [SerializeField] int number;
+    [SerializeField] string text;
+
+    public void Start()
+    {
+        GetComponent<TextMeshPro>().text = text + this.number.ToString();
+    }
 
     public int GetNumber() {
         return this.number;
@@ -15,10 +21,14 @@ public class NumberField : MonoBehaviour {
 
     public void SetNumber(int newNumber) {
         this.number = newNumber;
-        GetComponent<TextMeshPro>().text = newNumber.ToString();
+        GetComponent<TextMeshPro>().text = text + newNumber.ToString();
     }
 
     public void AddNumber(int toAdd) {
         SetNumber(this.number + toAdd);
+    }
+    public void SubNumber(int toSub)
+    {
+        SetNumber(this.number - toSub);
     }
 }
