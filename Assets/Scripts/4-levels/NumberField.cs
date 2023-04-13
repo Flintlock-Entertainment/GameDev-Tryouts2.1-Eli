@@ -9,10 +9,11 @@ using UnityEngine;
 public class NumberField : MonoBehaviour {
     [SerializeField] int number;
     [SerializeField] string text;
+    [SerializeField] bool showText;
 
     public void Start()
     {
-        GetComponent<TextMeshPro>().text = text + this.number.ToString();
+        ShowText();
     }
 
     public int GetNumber() {
@@ -21,7 +22,7 @@ public class NumberField : MonoBehaviour {
 
     public void SetNumber(int newNumber) {
         this.number = newNumber;
-        GetComponent<TextMeshPro>().text = text + newNumber.ToString();
+        ShowText();
     }
 
     public void AddNumber(int toAdd) {
@@ -30,5 +31,12 @@ public class NumberField : MonoBehaviour {
     public void SubNumber(int toSub)
     {
         SetNumber(this.number - toSub);
+    }
+    public void ShowText()
+    {
+        if(showText)
+        {
+            GetComponent<TextMeshPro>().text = text + this.number.ToString();
+        }
     }
 }

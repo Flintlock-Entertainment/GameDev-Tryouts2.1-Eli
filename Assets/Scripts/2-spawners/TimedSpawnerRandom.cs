@@ -8,9 +8,11 @@ using UnityEngine;
 public class TimedSpawnerRandom: MonoBehaviour {
     [SerializeField] Mover prefabToSpawn;
     [SerializeField] Vector3 velocityOfSpawnedObject;
-    [Tooltip("Minimum time between consecutive spawns, in seconds")] [SerializeField] float minTimeBetweenSpawns = 1f;
-    [Tooltip("Maximum time between consecutive spawns, in seconds")] [SerializeField] float maxTimeBetweenSpawns = 3f;
+    [Tooltip("Minimum time for prefab to spawn, in seconds")] [SerializeField] float minTimeBetweenSpawns = 1f;
+    [Tooltip("Maximum time for prefab to spawn, in seconds")] [SerializeField] float maxTimeBetweenSpawns = 3f;
     [Tooltip("Maximum distance in X between spawner and spawned objects, in meters")] [SerializeField] float maxXDistance = 0.5f;
+    //TODO: set max and min distances & time
+    [Tooltip("Maximum distance in Y between spawner and spawned objects, in meters")] [SerializeField] float maxYDistance = 0.5f;
 
     void Start() {
          this.StartCoroutine(SpawnRoutine());    // co-routines
@@ -25,7 +27,7 @@ public class TimedSpawnerRandom: MonoBehaviour {
             // await Task.Delay((int)(timeBetweenSpawnsInSeconds*1000));       // async-await
             Vector3 positionOfSpawnedObject = new Vector3(
                 transform.position.x + Random.Range(-maxXDistance, +maxXDistance),
-                transform.position.y,
+                transform.position.y + Random.Range(-maxYDistance, +maxYDistance),
                 transform.position.z);
             GameObject newObject = Instantiate(prefabToSpawn.gameObject, positionOfSpawnedObject, Quaternion.identity);
             newObject.GetComponent<Mover>().SetVelocity(velocityOfSpawnedObject);
